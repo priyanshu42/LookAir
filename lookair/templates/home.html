@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block element %}
+
+<br>
+
+{% if zipcode %}
+	{{ zipcode }}
+{% endif %}
+
+{% if api %}
+	{% if api == "Error.." %}
+		<div class="jumbotron">
+		  <h1 class="display-4">Unknown</h1>
+		  <p class="lead">Sorry we couldn't locate your the ZipCode</p>
+		  <hr class="my-4">
+		  <p>Please try to give a valid ZipCode( American Territory)</p>
+		</div>
+	{% else %}
+		<div class="jumbotron {{ category_color }}">
+		  <h1 class="display-4">{{ api.0.Category.Name }}</h1>
+		  <p class="lead">Current {{ api.0.ReportingArea }} Air Quality: {{ api.0.AQI }}</p>
+		  <hr class="my-4">
+		  <p>{{ category_description }}</p>
+		</div>
+	{% endif %}
+<br><br>
+	<button type="button" class="btn btn-primary" onclick="window.location.href = 'https://airnow.app.cloud.gov/';">
+	  It uses API from <span class="badge badge-light">airnow.gov</span>
+	</button>
+{% endif %}
+
+{% endblock %}
+
